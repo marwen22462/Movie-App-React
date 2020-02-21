@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Search from "./component/Search";
 import MovieList from "./component/MovieList";
-import RatingFilter from './component/RatingFilter'
-
+import RatingFilter from "./component/RatingFilter";
 
 let movies = [
   {
@@ -26,12 +25,13 @@ let movies = [
 ];
 class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       minRating: 1,
       moviesArray: movies,
-      titleSearch: ""
-    }
+      titleSearch: "",
+    };
+    
   }
   addNewMovie(newMovie) {
     this.setState({
@@ -39,26 +39,28 @@ class App extends Component {
       moviesArray: [...this.state.moviesArray, newMovie]
     });
   }
-
-render() {
-  return (
-    <div className="App">
-      <Search value={this.state.titleSearch}
+  render() {
+    return (
+      <div className="App">
+        <Search
+          value={this.state.titleSearch}
           onChange={newTitle => {
             this.setState({
               titleSearch: newTitle
             });
           }}
-          />
-      <RatingFilter className="rating"
+        />
+        <RatingFilter
+          className="rating"
           etoile={this.state.minRating}
           onChange={newRating => {
             this.setState({
               minRating: newRating
             });
           }}
-          />
-      <MovieList movies={this.state.moviesArray.filter(
+        />
+        <MovieList
+          movies={this.state.moviesArray.filter(
             el =>
               el.rating >= this.state.minRating &&
               el.title
@@ -66,12 +68,11 @@ render() {
                 .toLowerCase()
                 .includes(this.state.titleSearch.trim().toLowerCase())
           )}
-          onAddMovie={newMovie => this.addNewMovie(newMovie)} />
-      
-      
-    </div>
-    
-  );
-}
+          onAddMovie={newMovie => this.addNewMovie(newMovie)}
+          isLoading={this.state.isLoading}
+        />
+      </div>
+    );
+  }
 }
 export default App;

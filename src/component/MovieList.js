@@ -1,8 +1,11 @@
 import React from "react";
 import MovieCard from "./MovieCard";
+import WithLoader from './WithLoader'
 
 const MovieList = ({ movies, onAddMovie = () => {} }) => (
-  <div className="movie-list">
+  
+  <div>
+    
     {movies.map((movie, key) => (
       <MovieCard className="Cards" movie={movie} key={key} />
     ))}
@@ -23,4 +26,4 @@ const MovieList = ({ movies, onAddMovie = () => {} }) => (
 );
 
 
-export default MovieList;
+export default WithLoader (MovieList);
